@@ -1,0 +1,180 @@
+{
+  "name": "Codegnan Open Saturday - AI Career Agent - SHEETS EXTENSION",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        200,
+        300
+      ],
+      "id": "when-chat-message-received",
+      "name": "When chat message received"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are Codegnan's AI Career Preparation Agent. Help engineering students prepare for interviews. Ask for role, current skills, available days and daily hours if missing. Make realistic day-by-day plans with tasks and measurable outcomes. Use the Interview Question Bank tool to retrieve sample questions when helpful. Use the calculator for study-hour arithmetic. Clearly distinguish verified tool results from your own suggestions. Never claim to have sent an email or saved a plan unless a connected tool confirms it. Never ask for passwords, API keys, or sensitive data. Keep answers clear and encouraging."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        500,
+        300
+      ],
+      "id": "ai-career-agent",
+      "name": "AI Career Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        360,
+        520
+      ],
+      "id": "google-gemini-chat-model",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 8
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        540,
+        520
+      ],
+      "id": "conversation-memory",
+      "name": "Conversation Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        740,
+        520
+      ],
+      "id": "study-hours-calculator",
+      "name": "Study Hours Calculator"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        920,
+        520
+      ],
+      "id": "wikipedia-research-tool",
+      "name": "Wikipedia Research Tool"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Look up interview practice questions from the approved Codegnan question bank.",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_SPREADSHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Questions",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        900,
+        700
+      ],
+      "id": "interview-question-bank---optional",
+      "name": "Interview Question Bank - OPTIONAL"
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Career Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Career Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversation Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Career Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Study Hours Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Career Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia Research Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Career Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interview Question Bank - OPTIONAL": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Career Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "pinData": {},
+  "tags": []
+}

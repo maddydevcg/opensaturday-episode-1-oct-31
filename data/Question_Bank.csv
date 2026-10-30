@@ -1,0 +1,11 @@
+topic,difficulty,question,expected_focus
+Python,Beginner,What is the difference between a list and tuple?,Mutability and use cases
+Python,Intermediate,Explain Python decorators with a practical example,Functions as first class objects
+Python,Intermediate,What is a generator and why use one?,Lazy iteration and memory
+SQL,Beginner,Explain INNER JOIN and LEFT JOIN,Join semantics
+SQL,Intermediate,Find the second highest salary in SQL,Window functions and subqueries
+SQL,Intermediate,What is an index and when can it hurt performance?,Read write tradeoffs
+Java,Beginner,Explain method overloading vs overriding,Compile time and runtime polymorphism
+Java,Intermediate,Explain HashMap vs ConcurrentHashMap,Thread safety
+Frontend,Beginner,What is event bubbling in JavaScript?,DOM events
+DSA,Intermediate,Explain binary search time complexity,O(log n) and sorted inputs
